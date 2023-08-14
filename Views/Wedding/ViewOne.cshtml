@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Wedding";
+}
+@model Event
+<div>
+    @await Html.PartialAsync("_Navigation")
+</div>
+<div class="ps-3 pe-3">
+    <h1>@Model.WedderOne & @Model.WedderTwo's wedding!</h1>
+    <h3>Date: @Model.WeddingDate.ToString("MMM d yyyy")</h3>
+    <p>Guests:</p>
+    <div class="border border-5 border-dark w-25 p-3">
+        @if(Model.UserInvites.Count < 1)
+        {
+            <p>No guests RSVP'd yet</p>
+        }
+        else
+        {
+        @foreach(Invite i in Model.UserInvites)
+        {
+            <p>@i.InvitedUser.FirstName @i.InvitedUser.LastName</p>
+        }
+        }
+    </div>
+</div>

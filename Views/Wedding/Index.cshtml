@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+@model List<Event>
+<div>
+    @await Html.PartialAsync("_Navigation")
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Wedding of</th>
+                <th>Date</th>
+                <th>Guest Count</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach(Event e in Model)
+        {
+            <tr>
+                <td><a asp-controller="Wedding" asp-action="ViewOne" asp-route-eventId=@e.EventId>@e.WedderOne & @e.WedderTwo</a></td>
+                <td>@e.WeddingDate.ToString("MMM d yyyy")</td>
+                <td>@e.UserInvites.Count</td>
+                <td>
+                @if(e.UserId == Context.Session.GetInt32("UserId"))
+                {
+                    <form asp-controller="Wedding" asp-action="Delete" asp-route-eventId=@e.EventId>
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                }
+                else
+                {
+                    @if(e.UserInvites.Any(i => i.EventId == e.EventId && i.UserId == Context.Session.GetInt32("UserId")))
+                    {
+                        <form asp-controller="Wedding" asp-action="RSVP" asp-route-eventId=@e.EventId method="post">
+                            <button class="btn btn-warning">Un-RSVP</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="Wedding" asp-action="RSVP" asp-route-eventId=@e.EventId method="post">
+                            <button class="btn btn-success">RSVP</button>
+                        </form>
+                    }
+                }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Wedding Planner";
+}
+@model Event
+<div>
+    @await Html.PartialAsync("_Navigation")
+</div>
+<div class="container">
+    <h1>Plan a Wedding</h1>
+    <form asp-controller="Wedding" asp-action="Create" method="post" class="w-50">
+        <div class="d-flex justify-content-between gap-2">
+            <label asp-for="WedderOne"></label>
+            <input type="text" asp-for="WedderOne">
+        </div>
+        <span asp-validation-for="WedderOne" class="text-danger font-weight-bold"></span>
+        <div class="d-flex justify-content-between gap-2">
+            <label asp-for="WedderTwo"></label>
+            <input type="text" asp-for="WedderTwo">
+        </div>
+        <span asp-validation-for="WedderTwo" class="text-danger font-weight-bold"></span>
+        <div class="d-flex justify-content-between gap-2">
+            <label asp-for="WeddingDate"></label>
+            <input type="date" asp-for="WeddingDate">
+        </div>
+        <span asp-validation-for="WeddingDate" class="text-danger font-weight-bold"></span>
+        <div class="d-flex justify-content-between gap-2">
+            <label asp-for="Address"></label>
+            <input type="text" asp-for="Address">
+        </div>
+        <span asp-validation-for="Address" class="text-danger font-weight-bold"></span>
+        <div>
+            <input type="submit" value="Create" class="btn btn-outline-success">
+        </div>
+    </form>
+</div>
