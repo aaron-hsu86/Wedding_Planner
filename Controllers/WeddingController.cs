@@ -35,10 +35,6 @@ public class WeddingController : Controller
     public IActionResult Create(Event newEvent)
     {
         // check it can't be between two users
-        if (db.Users.Any(u => u.FirstName == newEvent.WedderOne) && db.Users.Any(u => u.FirstName == newEvent.WedderTwo))
-        {
-            ModelState.AddModelError("WedderOne", "Wedding created cannot be between two users");
-        }
         if (!ModelState.IsValid)
         {
             return View("PlanWedding");
